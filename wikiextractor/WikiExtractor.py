@@ -55,6 +55,7 @@ import logging
 import os.path
 import re  # TODO use regex when it will be standard
 import sys
+import tqdm
 from io import StringIO
 from multiprocessing import Queue, Process, cpu_count
 from timeit import default_timer
@@ -199,14 +200,13 @@ def load_templates(file, output_file=None):
     templatePrefix = templateNamespace + ':'
     modulePrefix = moduleNamespace + ':'
 
-    articles = 0
     page = []
     inText = False
 
     if output_file:
         output = codecs.open(output_file, 'wb', 'utf-8')
 
-    for line in file:
+    for line in tqdm.tqdm(file, desc="Reading dump content"):
 
         line = line.decode('utf-8')
 
@@ -258,9 +258,6 @@ def load_templates(file, output_file=None):
                 output.write('   </text>\n')
                 output.write('</page>\n')
             page = []
-            articles += 1
-            if articles % 100000 == 0:
-                logging.info("Preprocessed %d pages", articles)
     if output_file:
         output.close()
         logging.info("Saved %d templates to '%s'", len(templates), output_file)
@@ -287,7 +284,7 @@ def process_dump(input_file, template_file, out_file, file_size, file_compress,
         input = fileinput.FileInput(input_file, openhook=fileinput.hook_compressed)
 
     # collect siteinfo
-    for line in input:
+    for line in tqdm.tqdm(input, desc="Reading dump info"):
         line = line.decode('utf-8')
         m = tagRE.search(line)
         if not m:

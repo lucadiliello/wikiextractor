@@ -470,7 +470,7 @@ def reduce_process(output_queue, output):
     next_ordinal = 0  # sequence number of pages
     while True:
         if next_ordinal in ordering_buffer:
-            output.write(ordering_buffer.pop(next_ordinal))
+            # output.write(ordering_buffer.pop(next_ordinal))
             next_ordinal += 1
             # progress report
             if next_ordinal % period == 0:

@@ -59,7 +59,7 @@ from io import StringIO
 from multiprocessing import Queue, Process, cpu_count
 from timeit import default_timer
 
-from .extract import Extractor, ignoreTag
+from .extract import Extractor, ignoreTag, define_template
 
 # ===========================================================================
 
@@ -194,23 +194,31 @@ def load_templates(file, output_file=None):
     :param output_file: file where to save templates and modules.
     """
     global templateNamespace, templatePrefix
-    templatePrefix = templateNamespace + ':'
     global moduleNamespace, modulePrefix
+
+    templatePrefix = templateNamespace + ':'
     modulePrefix = moduleNamespace + ':'
+
     articles = 0
     page = []
     inText = False
+
     if output_file:
         output = codecs.open(output_file, 'wb', 'utf-8')
+
     for line in file:
+
         line = line.decode('utf-8')
+
         if '<' not in line:  # faster than doing re.search()
             if inText:
                 page.append(line)
             continue
+
         m = tagRE.search(line)
         if not m:
             continue
+
         tag = m.group(2)
         if tag == 'page':
             page = []

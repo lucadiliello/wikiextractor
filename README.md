@@ -1,18 +1,13 @@
 # WikiExtractor
-[WikiExtractor.py](http://medialab.di.unipi.it/wiki/Wikipedia_Extractor) is a Python script that extracts and cleans text from a [Wikipedia database dump](http://download.wikimedia.org/).
+
+Package forked from the original repo and tried to reduce the number of bugsss...
+
+## Install from here with
+```bash
+pip install git+https://github.com/lucadiliello/wikiextractor.git --upgrade
+```
 
 The tool is written in Python and requires Python 3 but no additional library.
-**Warning**: problems have been reported on Windows due to poor support for `StringIO` in the Python implementation on Windows.
-
-For further information, see the [project Home Page](http://medialab.di.unipi.it/wiki/Wikipedia_Extractor) or the [Wiki](https://github.com/attardi/wikiextractor/wiki).
-
-# Wikipedia Cirrus Extractor
-
-`cirrus-extractor.py` is a version of the script that performs extraction from a Wikipedia Cirrus dump.
-Cirrus dumps contain text with already expanded templates.
-
-Cirrus dumps are available at:
-[cirrussearch](http://dumps.wikimedia.org/other/cirrussearch/).
 
 # Details
 

@@ -15,7 +15,7 @@ with open("README.md", "r") as fh:
 setup(
     name='wikiextractor',
     version=get_version(version),
-    author='Giuseppe Attardi',
+    author='Giuseppe Attardi & Luca Di Liello',
     author_email='attardi@gmail.com',
     description='A tool for extracting plain text from Wikipedia dumps',
     long_description=long_description,

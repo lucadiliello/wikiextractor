@@ -60,7 +60,7 @@ from io import StringIO
 from multiprocessing import Queue, Process, cpu_count
 from timeit import default_timer
 
-from .extract import Extractor, ignoreTag, define_template
+from .extract import Extractor, ignoreTag, define_template, acceptedNamespaces
 
 # ===========================================================================
 
@@ -346,7 +346,7 @@ def process_dump(input_file, template_file, out_file, file_size, file_compress,
     output_queue = Queue(maxsize=maxsize)
 
     # Reduce job that sorts and prints output
-    reduce = Process(target=reduce_process, args=(output_queue, output))
+    reduce = Process(target=reduce_process, args=(output_queue, None))
     reduce.start()
 
     # initialize jobs queue
@@ -355,7 +355,7 @@ def process_dump(input_file, template_file, out_file, file_size, file_compress,
     # start worker processes
     logging.info("Using %d extract processes.", process_count)
     workers = []
-    for _ in xrange(max(1, process_count)):
+    for _ in range(max(1, process_count)):
         extractor = Process(target=extract_process,
                             args=(jobs_queue, output_queue))
         extractor.daemon = True  # only live while parent process lives
@@ -470,7 +470,8 @@ def reduce_process(output_queue, output):
     next_ordinal = 0  # sequence number of pages
     while True:
         if next_ordinal in ordering_buffer:
-            # output.write(ordering_buffer.pop(next_ordinal))
+            #output.write(ordering_buffer.pop(next_ordinal))
+            print(ordering_buffer.pop(next_ordinal))
             next_ordinal += 1
             # progress report
             if next_ordinal % period == 0:
@@ -524,7 +525,7 @@ def main():
                         help="Do not expand templates")
     groupP.add_argument("--escapedoc", action="store_true",
                         help="use to escape the contents of the output <doc>...</doc>")
-    default_process_count = cpu_count() - 1
+    default_process_count = cpu_count()
     parser.add_argument("--processes", type=int, default=default_process_count,
                         help="Number of processes to use (default %(default)s)")
 

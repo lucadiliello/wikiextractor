@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import re
 
-from wikiextractor.WikiExtractor import version
+from wikiextractor import __version__
 
 
 def get_version(version):
@@ -14,7 +14,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='wikiextractor',
-    version=get_version(version),
+    version=get_version(__version__),
     author='Giuseppe Attardi & Luca Di Liello',
     author_email='attardi@gmail.com',
     description='A tool for extracting plain text from Wikipedia dumps',
@@ -33,9 +33,8 @@ setup(
      ],
     entry_points={
         "console_scripts": [
-            "wikiextractor = wikiextractor.Wikiextractor:main",
-            "extractPage = wikiextractor.extractPage:main",
+            "wikiextractor = wikiextractor.main:main",
             ]
         },
-    python_requires='>=3.6',
+    python_requires='>=3.7',
 )

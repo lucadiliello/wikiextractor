@@ -141,46 +141,6 @@ assuming template definitions have not changed.
 Option --no-templates significantly speeds up the extractor, avoiding the cost
 of expanding [MediaWiki templates](https://www.mediawiki.org/wiki/Help:Templates).
 
-For further information, visit [the documentation](http://attardi.github.io/wikiextractor).
-
-### Cirrus Extractor
-
-~~~
-usage: cirrus-extract.py [-h] [-o OUTPUT] [-b n[KMG]] [-c] [-ns ns1,ns2] [-q]
-                         [-v]
-                         input
-
-Wikipedia Cirrus Extractor:
-Extracts and cleans text from a Wikipedia Cirrus dump and stores output in a
-number of files of similar size in a given directory.
-Each file will contain several documents in the format:
-
-	<doc id="" url="" title="" language="" revision="">
-        ...
-        </doc>
-
-positional arguments:
-  input                 Cirrus Json wiki dump file
-
-optional arguments:
-  -h, --help            show this help message and exit
-
-Output:
-  -o OUTPUT, --output OUTPUT
-                        directory for extracted files (or '-' for dumping to
-                        stdin)
-  -b n[KMG], --bytes n[KMG]
-                        maximum bytes per output file (default 1M)
-  -c, --compress        compress output files using bzip
-
-Processing:
-  -ns ns1,ns2, --namespaces ns1,ns2
-                        accepted namespaces
-
-Special:
-  -q, --quiet           suppress reporting progress info
-  -v, --version         print program version
-~~~
 
 ## License
 The code is made available under the [GNU Affero General Public License v3.0](LICENSE). 

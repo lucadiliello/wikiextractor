@@ -4,7 +4,6 @@ import argparse
 import logging
 from multiprocessing import cpu_count
 
-from wikiextractor.clean import Extractor
 from wikiextractor.process import process_dump
 from wikiextractor.utils import size2integer
 
@@ -46,6 +45,8 @@ def main():
                         metavar="n[KMG]")
     groupO.add_argument("-c", "--compress", action="store_true",
                         help="compress output files using bzip")
+    groupO.add_argument("-k", "--keep_doc_tag", action="store_true",
+                        help="keep document tag in output")
 
     groupP = parser.add_argument_group('Processing')
     groupP.add_argument("-ns", "--namespaces", default="", metavar="ns1,ns2",

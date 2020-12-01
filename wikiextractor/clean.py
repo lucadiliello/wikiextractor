@@ -380,18 +380,31 @@ class Extractor:
         logging.debug("%s\t%s", self.id, self.title)
         text = ''.join(self.page)
 
-        header = '<doc id="%s" title="%s">\n' % (self.id, self.title)
-        # Separate header from text with a newline.
-        header += self.title + '\n\n'
-        footer = "\n</doc>\n"
-        out.write(header)
+        header = ""
+        footer = ""
+
+        if self.args.keep_doc_tag:
+            header += '<doc id="%s" title="%s">\n' % (self.id, self.title)
+            # Separate header from text with a newline.
+            header += self.title + '\n'
+
+            footer = "\n</doc>\n"
+            out.write(header)
 
         text = self.clean_text(text)
 
+        if not self.args.keep_doc_tag:
+            out.write(self.title.strip() + ". ")
+
         for line in text:
-            out.write(line)
-            out.write('\n')
-        out.write(footer)
+            line = line.strip()
+            if len(line) > 0:
+                out.write(line + "\n")
+        out.write("\n")
+
+        if self.args.keep_doc_tag:
+            out.write(footer)
+
         errs = (self.template_title_errs,
                 self.recursion_exceeded_1_errs,
                 self.recursion_exceeded_2_errs,
